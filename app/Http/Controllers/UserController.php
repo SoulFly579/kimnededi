@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailNotify;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -41,13 +44,13 @@ class UserController extends Controller
     }
 
     public function register(){
-        return view("User.login");
+        return view("User.register");
     }
 
     public function register_post(Request $request){
         $request->validate([
             'email'=>"required|unique:users",
-            'password'=>"required|email|min:5|max:16",
+            'password'=>"required|min:5|max:16",
             'username'=>"required",
             'name'=>"required",
             'surname'=>"required",
@@ -59,7 +62,7 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->is_preium = false;
+        $user->is_premium = false;
         $user->email_verified_token = Str::random(60);
         $user->email_verified_at = null;
         $user->is_two_factor = false;
@@ -70,6 +73,22 @@ class UserController extends Controller
             return redirect("login")->with("success","Başarıyla kayıt oldunuz. E-posta adresinizi doğruladıktan sonra giriş yapabilirsiniz.");
         }else{
             return redirect("login")->with("fail","Beklenmeyen bir hata ile karşılaştık.Bunun için üzgünüz. Lütfen tekrar deneyiniz.");
+        }
+    }
+
+    public function account_verification($token){
+        $VerifyUser = User::where("email_verified_token","=",$token)->first();
+        if($VerifyUser){
+            if(!$VerifyUser->email_verified_at){
+                $VerifyUser->email_verified_token = null;
+                $VerifyUser->email_verified_at = Carbon::now();
+                $VerifyUser->save();
+                return redirect("login")->with("success","E-posta adresinizi başarılı bir şekilde onaylamış bulunmaktasınız...Lütfen şimdi giriş yapar mısınız ?");
+            }else{
+                return redirect("login")->with("fail","E-posta adresiniz zaten doğrulanmış durumda. Giriş yapabilirsiniz.");
+            }
+        }else{
+            return redirect("login")->with("fail","Üzgünüz bir şey yanlış gitti...");
         }
     }
 }

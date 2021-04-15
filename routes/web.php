@@ -31,3 +31,6 @@ Route::get('/login',[UserController::class,"login"]);
 Route::post('/login',[UserController::class,"login_post"]);
 Route::get('/register',[UserController::class,"register"]);
 Route::post('/register',[UserController::class,"register_post"]);
+
+// E-mail Verification 
+Route::get('/account/verification/{token}',[UserController::class,"account_verification"]);

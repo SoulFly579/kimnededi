@@ -10,7 +10,7 @@
 @if(Session::get("fail"))
     <p>{{ Session::get("fail") }}</p>
 @endif
-    <form action="{{url("/login")}}" method="POST">
+    <form action="{{url('/login')}}" method="POST">
         @csrf
         <input type="email" name="email" />
         @error("email"){{$message}}@enderror
