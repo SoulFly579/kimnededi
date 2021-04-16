@@ -9,6 +9,10 @@
 <body>
 @if(Session::get("LoggedUser"))
     <h1>Hoşgeldiniz {{ Session::get("LoggedUser") }}</h1>
+    <form action="{{ url('logout') }}" method="POST">
+    @csrf
+        <button type="submit">Çıkış</button>
+    </form>
 @else
 <h1>Hoşgeldin müsafir</h1>
 @endif

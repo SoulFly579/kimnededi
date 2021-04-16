@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerifyEmail;
+use App\Mail\TwoFactorVerify;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,10 +28,17 @@ class UserController extends Controller
             if(Hash::check($request->password,$user->password)){
                 if($user->email_verified_at){
                     if($user->is_two_factor){
-                        //sending mail
+                        if(!$user->two_factor_codes){
+                            $user->two_factor_codes = $user->CreteTwoFactorCode();
+                            $user->save();
+                            Mail::to($user->email)->send(new TwoFactorVerify($user));
+                            return redirect("/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                        }else{
+                            return redirect("/two_factor_verifiy")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                        }
                     }else{
                         $request->session()->put("LoggedUser",$user->id);
-                        return redirect('home');
+                        return redirect('/');
                     }
                 }else{
                     return back()->with("fail","Lütfen e-posta adresinize gelen doğrulama linkine tıklayınız.");
@@ -76,6 +84,11 @@ class UserController extends Controller
         }
     }
 
+    public function logout(Request $request){
+        $request->session()->forget("LoggedUser");
+        return redirect("login");
+    }
+
     public function account_verification($token){
         $VerifyUser = User::where("email_verified_token","=",$token)->first();
         if($VerifyUser){
@@ -89,6 +102,21 @@ class UserController extends Controller
             }
         }else{
             return redirect("login")->with("fail","Üzgünüz bir şey yanlış gitti...");
+        }
+    }
+
+    public function two_factor_code_check(){
+        return view("User.TwoFactorCheck");
+    }
+    public function two_factor_code_check_post(Request $request){
+        $user = User::where("two_factor_codes","=",$request->code)->first();
+        if($user){
+            $request->session()->put("LoggedUser",$user->id);
+            $user->two_factor_codes = null;
+            $user->save();
+            return redirect("/");
+        }else{
+            return redirect("two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
         }
     }
 }

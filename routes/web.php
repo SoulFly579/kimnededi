@@ -31,6 +31,10 @@ Route::get('/login',[UserController::class,"login"]);
 Route::post('/login',[UserController::class,"login_post"]);
 Route::get('/register',[UserController::class,"register"]);
 Route::post('/register',[UserController::class,"register_post"]);
+Route::post('/logout',[UserController::class,"logout"]);
 
 // E-mail Verification 
 Route::get('/account/verification/{token}',[UserController::class,"account_verification"]);
+Route::get('/two_factor_verify',[UserController::class,"two_factor_code_check"]);
+Route::post('/two_factor_verify',[UserController::class,"two_factor_code_check_post"]);
+

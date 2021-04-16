@@ -17,6 +17,10 @@ class isLoginUser
     public function handle(Request $request, Closure $next)
     {
         if($request->session()->has("LoggedUser")){
+            $user = User::where("id","=",$request->session("LoggedUser"))->first();
+            if($user->two_factor_codes){
+                return redirect("/two_factor_verifiy")->with("fail","Önce girişinizi onaylamalısınız...");
+            }
             return $next($request);
         }else{
             return redirect("login");

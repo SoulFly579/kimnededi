@@ -44,4 +44,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function CreteTwoFactorCode(){
+        return rand(1000,9999);
+    }
 }
