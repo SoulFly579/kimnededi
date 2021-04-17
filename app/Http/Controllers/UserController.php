@@ -32,9 +32,9 @@ class UserController extends Controller
                             $user->two_factor_codes = $user->CreteTwoFactorCode();
                             $user->save();
                             Mail::to($user->email)->send(new TwoFactorVerify($user));
-                            return redirect("/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                            return redirect("/account/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }else{
-                            return redirect("/two_factor_verifiy")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                            return redirect("/account/two_factor_verifiy")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }
                     }else{
                         $request->session()->put("LoggedUser",$user->id);
@@ -116,7 +116,7 @@ class UserController extends Controller
             $user->save();
             return redirect("/");
         }else{
-            return redirect("two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
+            return redirect("/account/two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
         }
     }
 }
