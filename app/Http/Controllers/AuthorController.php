@@ -36,7 +36,6 @@ class AuthorController extends Controller
                         }
                     }else{
                         $request->session()->put("LoggedAuthor",$user->id);
-                        GettingDevicesInformation($user->id,"Author");
                         return redirect('/author/dashboard');
                     }
                 }else{
@@ -80,7 +79,6 @@ class AuthorController extends Controller
             $request->session()->put("LoggedAuthor",$user->id);
             $user->two_factor_codes = null;
             $user->save();
-            GettingDevicesInformation($user->id,"Author");
             return redirect("/author/dashboard");
         }else{
             return redirect("/account/two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
