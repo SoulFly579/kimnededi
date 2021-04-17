@@ -38,6 +38,7 @@ class UserController extends Controller
                         }
                     }else{
                         $request->session()->put("LoggedUser",$user->id);
+                        GettingDevicesInformation($user->id,"User");
                         return redirect('/');
                     }
                 }else{

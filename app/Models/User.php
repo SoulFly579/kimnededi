@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\UserActiviy;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,9 @@ class User extends Authenticatable
 
     public function CreteTwoFactorCode(){
         return rand(1000,9999);
+    }
+
+    public function GettingActivity(){
+        return $this->hasMany(UserActiviy::class,"user_id","id");
     }
 }

@@ -40,7 +40,7 @@ Route::prefix("account")->group(function(){
     Route::get('/verification/{token}',[UserController::class,"account_verification"]);
     Route::get('/two_factor_verify',[UserController::class,"two_factor_code_check"]);
     Route::post('/two_factor_verify',[UserController::class,"two_factor_code_check_post"]);
-    Route::get("/a",function (){
+    Route::get("/test",function (){
         return "merhaba";
     })->middleware("IsLoginUser");
     //Route::get('/settings',[UserController::class,"account_settings"]);
