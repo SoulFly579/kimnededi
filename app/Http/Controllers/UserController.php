@@ -34,7 +34,7 @@ class UserController extends Controller
                             Mail::to($user->email)->send(new TwoFactorVerify($user));
                             return redirect("/account/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }else{
-                            return redirect("/account/two_factor_verifiy")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                            return redirect("/account/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }
                     }else{
                         $request->session()->put("LoggedUser",$user->id);

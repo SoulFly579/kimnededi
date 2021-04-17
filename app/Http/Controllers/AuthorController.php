@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\TwoFactorVerify;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailNotify;
+use Illuminate\Support\Carbon;
+use App\Models\Author;
 
 class AuthorController extends Controller
 {
@@ -24,13 +30,13 @@ class AuthorController extends Controller
                             $user->two_factor_codes = $user->CreteTwoFactorCode();
                             $user->save();
                             Mail::to($user->email)->send(new TwoFactorVerify($user));
-                            return redirect("/account/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                            return redirect("/author/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }else{
-                            return redirect("/account/two_factor_verifiy")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
+                            return redirect("/author/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }
                     }else{
                         $request->session()->put("LoggedAuthor",$user->id);
-                        return redirect('/');
+                        return redirect('/author/dashboard');
                     }
                 }else{
                     return back()->with("fail","Lütfen e-posta adresinize gelen doğrulama linkine tıklayınız.");
@@ -78,4 +84,9 @@ class AuthorController extends Controller
             return redirect("/account/two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
         }
     }
+
+    public function dashboard(){
+        return "Yazar anasayfası";
+    }
+
 }
