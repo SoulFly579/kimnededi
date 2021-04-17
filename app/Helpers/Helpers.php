@@ -1,7 +1,8 @@
-<?php 
+<?php
 
 use Jenssegers\Agent\Agent;
 use App\Models\UserActivity;
+use App\Models\AuthorActivity;
 use App\Models\User;
 use App\Models\Author;
 
@@ -18,8 +19,8 @@ if (!function_exists('GettingDevicesInformation')) {
      * @return string a string in human readable format
      *
      * */
-    function GettingDevicesInformation($user_id,$user_type)
-    {   $user;
+    function GettingDevicesInformation($user_id,$user_type){
+        $user;
         if($user_type == "User"){
             //REMİNDER burda bunları değişken şeklinde yapmayı dene
             $user = User::where("id","=",$user_id)->first();
@@ -29,24 +30,38 @@ if (!function_exists('GettingDevicesInformation')) {
         if($user){
             $agent = new Agent();
             $platform = $agent->platform();
-            // Ubuntu, Windows, OS X, ...
             $browser = $agent->browser();
-            // Chrome, IE, Safari, Firefox, ...
+            $isDesktop = $agent->isDesktop();
+
             if($user_type == "User"){
+                // Sendin Request::ip() to IP LOCATİON API
                 $activity = new UserActivity;
-                $activity->platform = $platform;
-                $activity->browser = $browser;
-                $activity->device = $agent->device();
+                $activity->platform = $platform." ".$agent->version($platform);
+                $activity->browser = $browser." ".$agent->version($browser);
+                if($isDesktop){
+                    $activity->device = "Web";
+                }else{
+                    $activity->device = $agent->device();
+                }
+
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
                 $activity->save();
             }else if($user_type == "Author"){
+                // Sendin Request::ip() to IP LOCATİON APİ
+
                 $activity = new AuthorActivity;
-                $activity->platform = $agent->version($platform);
-                $activity->browser = $agent->version($browser);
-                $activity->device = $agent->device();
+                $activity->platform = $platform." ".$agent->version($platform);
+                $activity->browser = $browser." ".$agent->version($browser);
+                if($isDesktop){
+                    $activity->device = "Web";
+                }else{
+                    $activity->device = $agent->device();
+                }
+
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
+                $activity->save();
             }
         }
     }

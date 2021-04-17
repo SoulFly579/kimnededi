@@ -9,6 +9,7 @@ class UserActivity extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'device',
         'platform',
         'browser',
@@ -19,7 +20,7 @@ class UserActivity extends Model
     ];
 
     public function GettingUser(){
-        return $this->belongsToMany(User::class,"id","user_id");
+        return $this->belongsTo(User::class,"id","user_id");
     }
 
 }

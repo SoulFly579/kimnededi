@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ url('/two_factor_verify') }}" method="POST">
+    <form action="{{ url('/account/two_factor_verify') }}" method="POST">
         @csrf
         <input type="text" name="code" />
         <button type="submit">Gönder</button>

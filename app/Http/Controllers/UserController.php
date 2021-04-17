@@ -115,6 +115,7 @@ class UserController extends Controller
             $request->session()->put("LoggedUser",$user->id);
             $user->two_factor_codes = null;
             $user->save();
+            GettingDevicesInformation($user->id,"User");
             return redirect("/");
         }else{
             return redirect("/account/two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
