@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_two_factor');
             $table->text('two_factor_codes')->nullable();
+            $table->unsignedBigInteger("premium_type")->nullable();
+            $table->date("premium_finished_date")->nullable();
             $table->timestamps();
         });
     }
