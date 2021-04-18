@@ -18,7 +18,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger("writer_id");
             $table->unsignedBigInteger("article_id");
             $table->text("comment_text");
-            $table->unsignedBigInteger("title_comment_id");
+            $table->unsignedBigInteger("title_comment_id")->nullable();
             $table->text("like");
             $table->text("dislike");
             $table->timestamps();

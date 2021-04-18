@@ -16,6 +16,8 @@ class CreatePremiumTypesTable extends Migration
         Schema::create('premium_types', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->decimal("price");
+            $table->string("the_period_of_validity");
             $table->timestamps();
         });
     }

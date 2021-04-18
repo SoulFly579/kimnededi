@@ -19,7 +19,7 @@ class UserActivity extends Model
     ];
 
     public function GettingUser(){
-        return $this->belongsToMany(User::class,"id","user_id");
+        return $this->belongsTo(User::class,"id","user_id");
     }
 
 }

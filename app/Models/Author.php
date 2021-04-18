@@ -9,7 +9,7 @@ class Author extends Model
 {
     use HasFactory;
 
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,4 +50,13 @@ class Author extends Model
     public function CreteTwoFactorCode(){
         return rand(1000,9999);
     }
+
+    public function getPost(){
+        $this->hasMany(Article::class,"writer_id","id");
+    }
+
+    public function GettingActivity(){
+        return $this->hasMany(AuthorActivity::class,"user_id","id");
+    }
+
 }

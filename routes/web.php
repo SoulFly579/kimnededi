@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/',[HomeController::class,"home"]);
+//Route::get('/{page}',[HomeController::class,"home"]);
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::post('/login',[UserController::class,"login_post"]);
 Route::get('/register',[UserController::class,"register"]);
 Route::post('/register',[UserController::class,"register_post"]);
 Route::post('/logout',[UserController::class,"logout"]);
+
 
 Route::prefix("account")->group(function(){
 
@@ -69,3 +71,5 @@ Route::prefix("author")->group(function(){
     //Route::get('/settings',[UserController::class,"account_settings"]);
     //Route::post('/settings',[UserController::class,"account_settings"]);
 });
+
+

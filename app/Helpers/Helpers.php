@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Jenssegers\Agent\Agent;
 use App\Models\UserActivity;
@@ -19,7 +19,8 @@ if (!function_exists('GettingDevicesInformation')) {
      *
      * */
     function GettingDevicesInformation($user_id,$user_type)
-    {   $user;
+    {
+
         if($user_type == "User"){
             //REMİNDER burda bunları değişken şeklinde yapmayı dene
             $user = User::where("id","=",$user_id)->first();
