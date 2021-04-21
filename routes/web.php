@@ -17,7 +17,9 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/',[HomeController::class,"home"]);
-//Route::get('/{page}',[HomeController::class,"home"]);
+Route::get('/{page}',[HomeController::class,"page"]);
+Route::get("/contact", [HomeController::class,"contact"]);
+Route::post("/contact", [HomeController::class,"contactPost"]);
 
 /*
 |--------------------------------------------------------------------------
