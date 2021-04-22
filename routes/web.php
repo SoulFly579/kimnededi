@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ArticlesController;
+
+use App\Http\Middleware\IsLoginAuthor;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +22,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/',[HomeController::class,"home"]);
-Route::get('/{page}',[HomeController::class,"page"]);
+//Route::get('/{page}',[HomeController::class,"page"]);
 Route::get("/contact", [HomeController::class,"contact"]);
 Route::post("/contact", [HomeController::class,"contactPost"]);
 
@@ -61,7 +66,42 @@ Route::prefix("account")->group(function(){
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix("author")->group(function(){
+Route::get('author/login',[AuthorController::class,"login"]);
+Route::post('author/login',[AuthorController::class,"login_post"]);
+
+Route::prefix("author")->middleware("IsLoginAuthor")->group(function(){
+
+    // About Author Account
+    Route::get('/verification/{token}',[AuthorController::class,"account_verification"]);
+    Route::get('/two_factor_verify',[AuthorController::class,"two_factor_code_check"]);
+    Route::post('/two_factor_verify',[AuthorController::class,"two_factor_code_check_post"]);
+    Route::get('/dashboard',[AuthorController::class,"dashboard"]);
+    Route::post('/logout',[AuthorController::class,"logout"]);
+
+    //Route::get('/settings',[UserController::class,"account_settings"]);
+    //Route::post('/settings',[UserController::class,"account_settings"]);
+
+    // Articles Route
+    Route::get("/articles", [ArticlesController::class,"articles"]);
+    Route::get("/articles/create", [ArticlesController::class,"articlesCreate"]);
+    Route::post("/articles/create", [ArticlesController::class,"articlesCreatePost"]);
+    Route::post("/articles/delete",[ArticlesController::class,"articlesDelete"]);
+    Route::get("/articles/edit/status",[ArticlesController::class,"articlesEditStatus"]);
+    Route::get("/articles/edit/{id}",[ArticlesController::class,"articlesEdit"]);
+    Route::put("/articles/edit/{id}",[ArticlesController::class,"articlesEditPost"]);
+
+    // Categories Route
+    Route::get("/categories",[CategoryController::class,"categories"]);
+    Route::post("/categories/create",[CategoryController::class,"categoriesCreate"]);
+    Route::post("/categories/delete",[CategoryController::class,"categoriesDelete"]);
+    Route::get("/categories/edit",[CategoryController::class,"categoriesEdit"]);
+    Route::post("/categories/edit/{id}",[CategoryController::class,"categoriesEditPost"]);
+    Route::get("/categories/edit/status",[CategoryController::class,"categoriesEditStatus"]);
+
+});
+
+
+Route::prefix("admin")->group(function(){
     Route::get('/login',[AuthorController::class,"login"]);
     Route::post('/login',[AuthorController::class,"login_post"]);
 
@@ -70,8 +110,15 @@ Route::prefix("author")->group(function(){
     Route::get('/two_factor_verify',[AuthorController::class,"two_factor_code_check"]);
     Route::post('/two_factor_verify',[AuthorController::class,"two_factor_code_check_post"]);
     Route::get('/dashboard',[AuthorController::class,"dashboard"]);
+    // Account Settings
     //Route::get('/settings',[UserController::class,"account_settings"]);
     //Route::post('/settings',[UserController::class,"account_settings"]);
+
+    // Page Route
+    Route::get("/pages", [PageController::class,"pages"]);
+
+
+
 });
 
 

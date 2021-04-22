@@ -18,6 +18,9 @@ class CreatePageTables extends Migration
             $table->integer("order");
             $table->string("title");
             $table->text("content");
+            $table->string("slug");
+            $table->integer("status")->default("1");
+            $table->string("image");
             $table->timestamps();
         });
     }

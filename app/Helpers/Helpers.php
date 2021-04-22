@@ -52,6 +52,31 @@ if (!function_exists('GettingDevicesInformation')) {
         }
     }
 }
-
+if (!function_exists('PercentageRatioCalculation')) {
+    /**
+     * Returns a human readable file size
+     *
+     * @param integer $bytes
+     * Bytes contains the size of the bytes to convert
+     *
+     * @param integer $decimals
+     * Number of decimal places to be returned
+     *
+     * @return string a string in human readable format
+     *
+     * */
+    function PercentageRatioCalculation($like,$dislike)
+    {
+        if($like <= 0){
+            return "%0";
+        }else if($dislike <= 0){
+            return "%100";
+        }else{
+            $rate = $like+$dislike;
+            $percentageRatio = ($like*100)/$rate;
+            return (int)$percentageRatio;
+        }
+    }
+}
 
 ?>

@@ -11,6 +11,6 @@ class Category extends Model
     use HasFactory;
 
     public function getPost(){
-            $this->hasMany(Article::class,"category_id","id");
+        return $this->hasMany(Article::class,"category_id","id");
     }
 }

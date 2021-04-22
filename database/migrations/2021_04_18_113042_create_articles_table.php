@@ -16,12 +16,14 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("writer_id");
-            $table->string("article_title");
+            $table->string("title");
             $table->unsignedBigInteger("category_id");
-            $table->text("article_content");
-            $table->string("article_slug");
-            $table->text("like");
-            $table->text("dislike");
+            $table->text("content");
+            $table->string("slug");
+            $table->integer("status")->default("1");
+            $table->text("hit")->nullable();
+            $table->text("like")->nullable();
+            $table->text("dislike")->nullable();
             $table->timestamps();
 
             $table->foreign('writer_id')->references('id')->on('authors')->onDelete("cascade");

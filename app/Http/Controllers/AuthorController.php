@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Mail\TwoFactorVerify;
 use Illuminate\Support\Facades\Hash;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MailNotify;
 use Illuminate\Support\Carbon;
 use App\Models\Author;
+use App\Models\Article;
+use Illuminate\Support\Str;
 
 class AuthorController extends Controller
 {
@@ -86,7 +89,8 @@ class AuthorController extends Controller
     }
 
     public function dashboard(){
-        return "Yazar anasayfası";
+        return view("Author.dashboard");
     }
+
 
 }
