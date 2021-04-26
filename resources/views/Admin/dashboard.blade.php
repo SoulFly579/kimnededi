@@ -1,4 +1,4 @@
-@extends('back.layouts.master')
+@extends('Admin.layouts.master')
 @section('title','Panel')
 @section('content')
                 <div class="row">

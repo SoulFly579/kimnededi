@@ -16,7 +16,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item @if(Request::segment(2)=='dashboard') active @endif">
-            <a class="nav-link" href="{{url('author/dashboard')}}">
+            <a class="nav-link" href="{{url('admin/dashboard')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Panel</span></a>
         </li>
@@ -31,23 +31,14 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link  @if(Request::segment(2)=='articles') in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-edit"></i>
+            <a class="nav-link" @if(Request::segment(2) == 'articles') style="color:white!important;" @endif href="{{url('admin/articles')}}">
+                <i class="fas fa-fw fa-edit"@if(Request::segment(2) == 'articles') style="color:white!important;" @endif></i>
                 <span>Makaleler</span>
             </a>
-            <div id="collapseTwo" class="collapse  @if(Request::segment(2)=='articles') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Makale İşlemleri:</h6>
-                    <a class="collapse-item @if(Request::segment(2)=='articles' and !Request::segment(3)) active @endif" href="{{url('author/articles')}}">Tüm makaleler</a>
-                    <a class="collapse-item @if(Request::segment(2)=='articles' and Request::segment(3)=='create') active @endif" href="{{url('author/articles/create')}}">Makale Oluştur</a>
-                </div>
-            </div>
         </li>
-
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" @if(Request::segment(2) == 'categories') style="color:white!important;" @endif href="{{url('author/categories')}}">
+            <a class="nav-link" @if(Request::segment(2) == 'categories') style="color:white!important;" @endif href="{{url('admin/categories')}}">
                 <i class="fas fa-fw fa-list"@if(Request::segment(2) == 'categories') style="color:white!important;" @endif></i>
                 <span>Kategoriler</span>
             </a>
@@ -227,17 +218,13 @@
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
+                                Ayarlar
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <!--<a class="dropdown-item" href="#">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
+                                Admin Aktiviterleri
+                            </a>-->
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -257,7 +244,7 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">@yield('title')</h1>
-                    <a href="{{route('homepage')}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    <a href="{{url('/')}}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-globe fa-sm text-white-50"></i> Siteyi Görüntüle</a>
                 </div>
 

@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 
 use App\Http\Middleware\IsLoginAuthor;
 
@@ -100,19 +102,37 @@ Route::prefix("author")->middleware("IsLoginAuthor")->group(function(){
 
 });
 
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-Route::prefix("admin")->group(function(){
-    Route::get('/login',[AuthorController::class,"login"]);
-    Route::post('/login',[AuthorController::class,"login_post"]);
+Route::get('admin/login',[AdminController::class,"login"]);
+Route::post('admin/login',[AdminController::class,"login_post"]);
+
+Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
 
     // E-mail Verification Author
-    Route::get('/verification/{token}',[AuthorController::class,"account_verification"]);
-    Route::get('/two_factor_verify',[AuthorController::class,"two_factor_code_check"]);
-    Route::post('/two_factor_verify',[AuthorController::class,"two_factor_code_check_post"]);
-    Route::get('/dashboard',[AuthorController::class,"dashboard"]);
+    Route::get('/verification/{token}',[AdminController::class,"account_verification"]);
+    Route::get('/two_factor_verify',[AdminController::class,"two_factor_code_check"]);
+    Route::post('/two_factor_verify',[AdminController::class,"two_factor_code_check_post"]);
+    Route::get('/dashboard',[AdminController::class,"dashboard"]);
+    Route::post('/logout',[AdminController::class,"logout"]);
     // Account Settings
     //Route::get('/settings',[UserController::class,"account_settings"]);
     //Route::post('/settings',[UserController::class,"account_settings"]);
+
+    // Articles Route
+    Route::get("/articles", [BlogController::class,"articles"]);
+
+    // Categories Route
+    Route::get("/categories",[BlogController::class,"categories"]);
 
     // Page Route
     Route::get("/pages", [PageController::class,"pages"]);
