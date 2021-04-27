@@ -18,6 +18,6 @@ class Announcements extends Model
     ];
 
     public function getFrom(){
-        $this->hasMany(Admin::class,"id","from");
+        return $this->belongsTo(Admin::class,"from","id");
     }
 }

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendAnnouncements;
+use App\Mail\SendPassword;
 use App\Mail\TwoFactorVerify;
 use App\Models\Admin;
+use App\Models\Announcements;
+use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -83,5 +89,81 @@ class AdminController extends Controller
     public function dashboard(){
         return view("Admin.dashboard");
     }
+
+    public function authors(){
+        $authors = Author::all();
+        return view("Admin.Author.index",compact("authors"));
+    }
+
+    public function authorsCreate(){
+        return view("Admin.Author.create");
+    }
+
+    public function authorsCreatePost(Request $request){
+        $request->validate([
+            'name'=>"required",
+            'surname'=>"required",
+            'username'=>"required|unique:authors",
+            'email'=>"required|email|unique:authors",
+            'location'=>"required",
+            'phone'=>"required",
+        ]);
+        $password = Str::random(12);
+        $user = new Author;
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($password);
+        $user->slug = Str::slug($request->username);
+        $user->phone = $request->phone;
+        $user->location = $request->location;
+        $user->address = $request->address;
+        $user->is_two_factor = 0;
+        $query = $user->save();
+
+        if($query){
+            Mail::to($user->email)->send(new SendPassword($user,$password));
+            return redirect("/admin/authors")->with("success","Kayıt başarılı bir şekilde yapıldı.");
+        }else{
+            return redirect("/admin/authors/create")->with("fail","Bir hata meydana geldi.");
+        }
+
+    }
+
+    public function authorsDelete(Request $request){
+        Author::findOrFail($request->authorId)->delete();
+        return redirect("/admin/authors")->with("success","Başarıyla yazar silindi.");
+    }
+
+    public function announcements(){
+        $announcements = Announcements::all();
+        return view("Admin.Announcements.index",compact("announcements"));
+    }
+
+    public function announcementsCreate(){
+        return view("Admin.Announcements.create");
+    }
+    public function announcementsCreatePost(Request $request){
+        $request->validate([
+            "title"=>"required",
+            "content"=>"required",
+        ]);
+
+        $announcements = new Announcements;
+        $announcements->title = $request->title;
+        $announcements->content = $request->content;
+        $announcements->from = Session::get("LoggedAdmin");
+        $announcements->save();
+
+        $authors = Author::all();
+        foreach($authors as $author){
+            Mail::to($author->email)->send(new SendAnnouncements($author,$announcements));
+        }
+
+        return redirect("admin/announcements")->with("success","Duyuru yazarlara ulaştırıldı.");
+
+    }
+
 
 }

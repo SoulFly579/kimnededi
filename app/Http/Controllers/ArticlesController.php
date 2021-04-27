@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class ArticlesController extends Controller
 {
     public function articles(){
-        $articles = Article::where("id","=",Session::get("LoggedAuthor"))->get();
+        $articles = Article::where("writer_id","=",Session::get("LoggedAuthor"))->get();
         return view("Author.articles.index", compact("articles"));
     }
 

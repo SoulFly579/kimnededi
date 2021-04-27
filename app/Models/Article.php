@@ -18,7 +18,7 @@ class Article extends Model
     }
 
     public function getAuthor(){
-        return $this->belongsTo(Author::class,"id","writter_id");
+        return $this->belongsTo(Author::class,"writer_id","id");
     }
 
     public function PercentageRatioCalculation($like,$dislike){

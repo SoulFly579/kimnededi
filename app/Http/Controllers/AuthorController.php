@@ -27,22 +27,18 @@ class AuthorController extends Controller
         $user = Author::where("email","=",$request->email)->first();
         if($user){
             if(Hash::check($request->password,$user->password)){
-                if($user->email_verified_at){
-                    if($user->is_two_factor){
-                        if(!$user->two_factor_codes){
-                            $user->two_factor_codes = $user->CreteTwoFactorCode();
-                            $user->save();
-                            Mail::to($user->email)->send(new TwoFactorVerify($user));
-                            return redirect("/author/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
-                        }else{
-                            return redirect("/author/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
-                        }
+                if($user->is_two_factor){
+                    if(!$user->two_factor_codes){
+                        $user->two_factor_codes = $user->CreteTwoFactorCode();
+                        $user->save();
+                        Mail::to($user->email)->send(new TwoFactorVerify($user));
+                        return redirect("/author/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                     }else{
-                        $request->session()->put("LoggedAuthor",$user->id);
-                        return redirect('/author/dashboard');
+                        return redirect("/author/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                     }
                 }else{
-                    return back()->with("fail","Lütfen e-posta adresinize gelen doğrulama linkine tıklayınız.");
+                    $request->session()->put("LoggedAuthor",$user->id);
+                    return redirect('/author/dashboard');
                 }
             }else{
                 return back()->with("fail","Girmiş olduğunuz şifre uyumsuzdur...");

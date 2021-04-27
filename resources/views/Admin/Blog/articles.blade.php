@@ -18,6 +18,7 @@
                     <tr>
                         <th>Makale Başlığı</th>
                         <th>Kategori</th>
+                        <th>Yazar</th>
                         <th>Hit</th>
                         <th>Beğeni Oranı</th>
                         <th>Yorum Sayısı</th>
@@ -31,6 +32,7 @@
                         <tr>
                             <td>{{$article->title}}</td>
                             <td>{{$article->getCategory->name}}</td>
+                            <td>{{$article->getAuthor->name}} {{$article->getAuthor->surname}} </td>
                             <td>{{$article->hit}}</td>
                             <td>{{$article->PercentageRatioCalculation($article->like,$article->dislike)}}</td>
                             <td>{{$article->getComment->count()}}</td>

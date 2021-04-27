@@ -2,7 +2,7 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><strong>{{$authors->count()}} Yazar Bulunudu.</strong>
+            <h6 class="m-0 font-weight-bold text-primary"><strong>{{$announcements->count()}} Yazar Bulunudu.</strong>
             </h6>
         </div>
         <div class="card-body">
@@ -16,23 +16,17 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>Yazar Adı ve Soyadı</th>
-                        <th>Yazar'ın makale sayısı</th>
-                        <th>İşlemler</th>
+                        <th>Duyuru Adı</th>
+                        <th>Kim Yayınladı</th>
+                        <th>Duyuru Tarihi</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($authors as $author)
+                    @foreach($announcements as $announcement)
                         <tr>
-                            <td>{{$author->name." ".$author->surname  }}</td>
-                            <td>{{$author->getPost->count()}}</td>
-                            <td>
-                                <form method="POST" action="{{url("/admin/authors/delete")}}">
-                                    @csrf
-                                    <input type="hidden" value="{{$author->id}}" name="authorId" />
-                                    <button title="Sil" type="submit" class="btn btn-sm btn-danger remove-click"><i class="fa fa-times"></i></button>
-                                </form>
-                            </td>
+                            <td>{{$announcement->title}}</td>
+                            <td>{{$announcement->getFrom->name." ".$announcement->getFrom->surname}}</td>
+                            <td>{{$announcement->created_at->diffForHumans()}}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -44,4 +38,5 @@
 @section('css')
 @endsection
 @section('js')
+
 @endsection

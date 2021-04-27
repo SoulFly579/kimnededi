@@ -52,7 +52,7 @@ class Author extends Model
     }
 
     public function getPost(){
-        $this->hasMany(Article::class,"writer_id","id");
+        return $this->hasMany(Article::class,"writer_id","id");
     }
 
     public function GettingActivity(){

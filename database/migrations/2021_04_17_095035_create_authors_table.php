@@ -21,8 +21,6 @@ class CreateAuthorsTable extends Migration
             $table->string("email")->unique();
             $table->string("password");
             $table->string("location");
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('email_verified_token')->nullable();
             $table->string("slug");
             $table->string("phone");
             $table->text("address");

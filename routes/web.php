@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Admin\SettingsController;
 
 use App\Http\Middleware\IsLoginAuthor;
 
@@ -133,6 +134,20 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
 
     // Categories Route
     Route::get("/categories",[BlogController::class,"categories"]);
+
+    //Author Route
+    Route::get("/authors",[AdminController::class,"authors"]);
+    Route::get("/authors/create",[AdminController::class,"authorsCreate"]);
+    Route::post("/authors/create",[AdminController::class,"authorsCreatePost"]);
+    Route::post("/authors/delete",[AdminController::class,"authorsDelete"]);
+
+    // Announcements Route
+    Route::get("/announcements",[AdminController::class,"announcements"]);
+    Route::get("/announcements/create",[AdminController::class,"announcementsCreate"]);
+    Route::post("/announcements/create",[AdminController::class,"announcementsCreatePost"]);
+
+    //Site Settings
+    Route::get("/site/settings",[SettingsController::class,"index"]);
 
     // Page Route
     Route::get("/pages", [PageController::class,"pages"]);
