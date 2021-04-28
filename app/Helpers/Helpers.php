@@ -2,6 +2,7 @@
 
 use Jenssegers\Agent\Agent;
 use App\Models\UserActivity;
+use App\Models\AuthorActivity;
 use App\Models\User;
 use App\Models\Author;
 
@@ -43,11 +44,12 @@ if (!function_exists('GettingDevicesInformation')) {
                 $activity->save();
             }else if($user_type == "Author"){
                 $activity = new AuthorActivity;
-                $activity->platform = $agent->version($platform);
-                $activity->browser = $agent->version($browser);
+                $activity->platform = $platform;
+                $activity->browser = $browser;
                 $activity->device = $agent->device();
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
+                $activity->save();
             }
         }
     }

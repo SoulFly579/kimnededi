@@ -17,11 +17,9 @@ class AuthorActivity extends Model
         'browser',
         'ip_address',
         'user_id',
-        'user_email',
-        'user_activity',
     ];
 
     public function GettingUser(){
-        return $this->belongsTo(Author::class,"id","user_id");
+        return $this->belongsTo(Author::class,"user_id","id");
     }
 }

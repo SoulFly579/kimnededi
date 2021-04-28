@@ -21,9 +21,11 @@ class CreateArticlesTable extends Migration
             $table->text("content");
             $table->string("slug");
             $table->integer("status")->default("1");
-            $table->text("hit")->nullable();
+            $table->integer("hit")->default("0");
             $table->text("like")->nullable();
             $table->text("dislike")->nullable();
+            $table->string("description",160);
+            $table->string("keywords",160);
             $table->timestamps();
 
             $table->foreign('writer_id')->references('id')->on('authors')->onDelete("cascade");

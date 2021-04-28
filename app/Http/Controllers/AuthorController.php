@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Saying;
+use App\Models\Speaker;
 use Illuminate\Http\Request;
 use App\Mail\TwoFactorVerify;
+use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailNotify;
@@ -12,6 +15,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Author;
 use App\Models\Article;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 
 class AuthorController extends Controller
 {
@@ -38,6 +42,7 @@ class AuthorController extends Controller
                     }
                 }else{
                     $request->session()->put("LoggedAuthor",$user->id);
+                    GettingDevicesInformation($user->id,"Author");
                     return redirect('/author/dashboard');
                 }
             }else{
@@ -86,6 +91,71 @@ class AuthorController extends Controller
 
     public function dashboard(){
         return view("Author.dashboard");
+    }
+
+    public function saying(){
+        $sayings = Saying::where("writer_id","=",Session::get("LoggedAuthor"))->get();
+        return view("Author.Saying.index",compact("sayings"));
+    }
+
+    public function sayingCreatePost(Request $request){
+        $speakers = Speaker::where("name","=",$request->speaker)->first();
+        if($speakers){
+            $sayings = new Saying;
+            $sayings->sentence = $request->sayings;
+            $sayings->speakers = $speakers->id;
+            $sayings->writer_id = Session::get("LoggedAuthor");
+            $sayings->save();
+            return redirect()->back()->with("success","Başarılı bir şekilde yayınlanmıştır.");
+        }
+        return redirect()->back()->with("fail","Bir şeyler ters gitti lütfen söyleyini seçtikten sonra herhangi bir oynama yapmayınız.");
+    }
+
+    public function sayingDelete(Request $request){
+        Saying::where("id","=",$request->delete_id)->delete();
+        return redirect()->back()->with("success","Söz başarılı bir şekilde silindi.");
+    }
+
+    public function speakers(){
+        $speakers = Speaker::all();
+        return view("Author.Speakers.index",compact("speakers"));
+    }
+
+    public function speakersGet(Request $request){
+        $search = Speaker::where("name","LIKE","$request->search%")->get();
+        return response()->json($search);
+    }
+
+    public function speakersCreatePost(Request $request){
+        $request->validate([
+           "name"=>"required",
+        ]);
+        $isExits = Speaker::where("slug","=",Str::slug($request->name))->first();
+        if($isExits){
+            return back()->with("fail","Zaten böyle bir söyleyen mevcut.");
+        }else{
+            $speakers = new Speaker;
+            $speakers->name = $request->name;
+            $speakers->slug = Str::slug($request->name);
+            $speakers->save();
+            return redirect("/author/speakers")->with("success","Söyleyen başarılı bir şekilde kayıt edilmiştir.");
+        }
+    }
+
+    public function speakersDelete(Request $request){
+        $speakers = Speaker::where("id","=",$request->delete_id)->first();
+        if($speakers->id == 1){
+            return redirect()->back()->with("fail","Bu söyleyen silinemez");
+        }
+        if($speakers->getSaying->count() > 0) {
+            Saying::where('speakers',$speakers->id)->update(['speakers'=>1]);
+            $successText = 'Kategori başarıyla silindi. mevcut söyelyene ait makaleler başka bir söyleyen kısmına aktarıldı';
+        }else{
+            $successText = "Söyleyen başarıyla silindi.";
+        }
+        $speakers->delete();
+        return redirect()->back()->with("success",$successText);
+
     }
 
 

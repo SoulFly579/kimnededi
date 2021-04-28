@@ -10,6 +10,7 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\PremiumController;
 
 use App\Http\Middleware\IsLoginAuthor;
 
@@ -101,6 +102,19 @@ Route::prefix("author")->middleware("IsLoginAuthor")->group(function(){
     Route::post("/categories/edit/{id}",[CategoryController::class,"categoriesEditPost"]);
     Route::get("/categories/edit/status",[CategoryController::class,"categoriesEditStatus"]);
 
+    //Saying Route
+    Route::get("/sayings",[AuthorController::class,"saying"]);
+    Route::post("/sayings/create",[AuthorController::class,"sayingCreatePost"]);
+    Route::post("/sayings/delete",[AuthorController::class,"sayingDelete"]);
+
+    //Speakers Route
+    Route::get("/speakers",[AuthorController::class,"speakers"]);
+    Route::get("/speakers/get",[AuthorController::class,"speakersGet"]);
+    Route::post("/speakers/create",[AuthorController::class,"speakersCreatePost"]);
+    Route::post("/speakers/delete",[AuthorController::class,"speakersDelete"]);
+
+
+
 });
 
 /*
@@ -148,6 +162,12 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
 
     //Site Settings
     Route::get("/site/settings",[SettingsController::class,"index"]);
+
+    //Premium Route
+    Route::get("/premiums",[PremiumController::class,"index"]);
+    Route::post("/premiums/create",[PremiumController::class,"premiumCreate"]);
+    Route::post("/premiums/delete",[PremiumController::class,"premiumDelete"]);
+    Route::post("/premiums/status",[PremiumController::class,"premiumStatus"]);
 
     // Page Route
     Route::get("/pages", [PageController::class,"pages"]);

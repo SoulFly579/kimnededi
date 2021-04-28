@@ -8,18 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class UserActivity extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'device',
         'platform',
         'browser',
         'ip_address',
         'user_id',
-        'user_email',
-        'user_activity',
     ];
 
     public function GettingUser(){
-        return $this->belongsTo(User::class,"id","user_id");
+        return $this->belongsTo(User::class,"user_id","id");
     }
 
 }

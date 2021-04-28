@@ -52,6 +52,20 @@
                 <span>Kategoriler</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link  @if(Request::segment(2)=='sayings') in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#sayings"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-podcast"></i>
+                <span>Söz</span>
+            </a>
+            <div id="sayings" class="collapse  @if(Request::segment(2)=='sayings') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Söz İşlemleri:</h6>
+                    <a class="collapse-item @if(Request::segment(2)=='sayings' and !Request::segment(3)) active @endif" href="{{url('author/sayings')}}">Söz Ekle</a>
+                    <a class="collapse-item @if(Request::segment(2)=='speakers' and !Request::segment(3)) active @endif" href="{{url('author/speakers')}}">Söyleyen Ekle</a>
+                </div>
+            </div>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider">
     </ul>

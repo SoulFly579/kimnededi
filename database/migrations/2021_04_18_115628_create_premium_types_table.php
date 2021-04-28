@@ -17,7 +17,10 @@ class CreatePremiumTypesTable extends Migration
             $table->id();
             $table->string("name");
             $table->decimal("price");
-            $table->string("the_period_of_validity");
+            $table->string("features");
+            $table->integer("the_period_of_validity");
+            $table->string("type");
+            $table->boolean("status")->default("0");
             $table->timestamps();
         });
     }
