@@ -29,6 +29,8 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger("premium_type")->nullable();
             $table->date("premium_finished_date")->nullable();
             $table->timestamps();
+
+            $table->foreign("premium_type")->references("id")->on("premium_types");
         });
     }
 

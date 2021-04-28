@@ -17,7 +17,7 @@
                 @csrf
                 <div class="form-group">
                     <label>Premium İsmi</label>
-                    <input type="text" name="name" class="form-control" required>
+                    <input type="text" name="name" class="form-control" required />
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -75,13 +75,15 @@
                         {!! $premiumTypes->features !!}
                     </div>
                     <form action="{{url("admin/premiums/delete")}}" method="POST">
+                        @csrf
                         <input type="hidden" name="delete_id" value="{{$premiumTypes->id}}">
                         <button type="submit" class="btn btn-lg btn-block btn-outline-danger">Paketi Sil</button>
                     </form><br>
                     <form action="{{url("admin/premiums/status")}}" method="POST">
+                        @csrf
                         <input type="hidden" name="change_id" value="{{$premiumTypes->id}}">
                         <input type="hidden" name="change_status" value="{{$premiumTypes->status}}">
-                        <button type="submit" class="btn btn-lg btn-block btn-outline-@if($premiumTypes->status == "0")warning @else success @endif">Paket Statusunu Değiştir (@if($premiumTypes->status == "0") Pasif @else Aktf @endif )</button>
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-@if($premiumTypes->status == "0")warning @elseif($premiumTypes->status == "1")success @endif">Paket Statusunu Değiştir (@if($premiumTypes->status == "0") Pasif @else Aktf @endif )</button>
                     </form>
                 </div>
             </div>

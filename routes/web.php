@@ -168,6 +168,9 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
     Route::post("/premiums/create",[PremiumController::class,"premiumCreate"]);
     Route::post("/premiums/delete",[PremiumController::class,"premiumDelete"]);
     Route::post("/premiums/status",[PremiumController::class,"premiumStatus"]);
+    Route::get("/premiums/give",[PremiumController::class,"premiumGive"]);
+    Route::post("/premiums/give",[PremiumController::class,"premiumGivePost"]);
+    Route::get("/premiums/give/get",[PremiumController::class,"premiumGiveGet"]);
 
     // Page Route
     Route::get("/pages", [PageController::class,"pages"]);

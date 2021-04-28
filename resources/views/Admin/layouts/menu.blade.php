@@ -72,6 +72,20 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link  @if(Request::segment(2)=='announcements') in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#premiums"
+               aria-expanded="true" aria-controls="premiums">
+                <i class="fas fa-bullhorn"></i>
+                <span>Premium</span>
+            </a>
+            <div id="premiums" class="collapse  @if(Request::segment(2)=='premiums') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Premium İşlemleri:</h6>
+                    <a class="collapse-item @if(Request::segment(2)=='premiums' and !Request::segment(3)) active @endif" href="{{url('admin/premiums')}}">Premim Ekle/Görüntüle</a>
+                    <a class="collapse-item @if(Request::segment(2)=='premiums' and Request::segment(3)=='give') active @endif" href="{{url('admin/premiums/give')}}">Premium Ver</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" @if(Request::segment(2) == 'site') style="color:white!important;" @endif href="{{url('admin/site/settings')}}">
                 <i class="fas fa-sliders-h"></i>
                 <span>Site Ayarları</span>
