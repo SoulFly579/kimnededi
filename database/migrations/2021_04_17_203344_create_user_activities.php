@@ -20,6 +20,7 @@ class CreateUserActivities extends Migration
             $table->string('browser');
             $table->string('ip_address');
             $table->unsignedBigInteger('user_id');
+            $table->date('time');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");

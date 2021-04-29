@@ -25,8 +25,17 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Makale İçeriği</label>
+                    <label>Makale İçeriği</label><br>
+                    @error("content")<p style="color:red">{{$message}}</p>@enderror
                     <textarea name="content" id="editor" cols="30" rows="10" >{!! $article->content !!}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description Alanı</label><br>
+                    @error("description")<p style="color:red">{{$message}}</p>@enderror
+                    <textarea class="form-control" name="description" required>{{$article->description}}</textarea>
+                    <label>Keywords Alanı</label><br>
+                    @error("keywords")<p style="color:red">{{$message}}</p>@enderror
+                    <textarea class="form-control" name="keywords" required>{{$article->keywords}}</textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Makaleyi Oluştur</button>

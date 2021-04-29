@@ -80,6 +80,7 @@ Route::prefix("author")->middleware("IsLoginAuthor")->group(function(){
     Route::get('/two_factor_verify',[AuthorController::class,"two_factor_code_check"]);
     Route::post('/two_factor_verify',[AuthorController::class,"two_factor_code_check_post"]);
     Route::get('/dashboard',[AuthorController::class,"dashboard"]);
+    Route::get('/activity',[AuthorController::class,"activity"]);
     Route::post('/logout',[AuthorController::class,"logout"]);
 
     //Route::get('/settings',[UserController::class,"account_settings"]);
@@ -153,7 +154,7 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
     Route::get("/authors",[AdminController::class,"authors"]);
     Route::get("/authors/create",[AdminController::class,"authorsCreate"]);
     Route::post("/authors/create",[AdminController::class,"authorsCreatePost"]);
-    Route::post("/authors/delete",[AdminController::class,"authorsDelete"]);
+    Route::post("/authors/status",[AdminController::class,"authorsStatus"]);
 
     // Announcements Route
     Route::get("/announcements",[AdminController::class,"announcements"]);
@@ -166,7 +167,6 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
     //Premium Route
     Route::get("/premiums",[PremiumController::class,"index"]);
     Route::post("/premiums/create",[PremiumController::class,"premiumCreate"]);
-    Route::post("/premiums/delete",[PremiumController::class,"premiumDelete"]);
     Route::post("/premiums/status",[PremiumController::class,"premiumStatus"]);
     Route::get("/premiums/give",[PremiumController::class,"premiumGive"]);
     Route::post("/premiums/give",[PremiumController::class,"premiumGivePost"]);

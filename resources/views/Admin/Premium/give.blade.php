@@ -17,15 +17,19 @@
                             @if(Session::get("error"))
                                 <div class="alert alert-danger">{{Session::get("error")}}</div>
                             @endif
-                            <label>Premium Türü</label>
-                            <select class="form-control" name="premium_id">
+                            <label>Premium Türü</label><br>
+                                @error("premium_id")<p style="color:red">{{$message}}</p>@enderror
+                            <select class="form-control" name="premium_id" required>
+                                <option value="">Lütfen bir paket seçiniz</option>
                                 @foreach($premiumsType as $premiumsTypes)
                                     <option value="{{$premiumsTypes->id}}">{{$premiumsTypes->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="search" class="form-control" name="user"/>
+                            <label>Kullanıcının Email Adresi</label><br>
+                            @error("user")<p style="color:red">{{$message}}</p>@enderror
+                            <input type="text" id="search" class="form-control" name="user" required/>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary btn-block ">Ekle</button>

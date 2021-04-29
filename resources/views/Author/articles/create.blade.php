@@ -11,11 +11,13 @@
             <form action="{{url('author/articles/create')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label>Makale Başlığı</label>
+                    <label>Makale Başlığı</label><br>
+                    @error("title")<p style="color:red">{{$message}}</p>@enderror
                     <input type="text" name="title" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Makale Kategorisi</label>
+                    <label>Makale Kategorisi</label><br>
+                    @error("category")<p style="color:red">{{$message}}</p>@enderror
                     <select name="category" class="form-control" required>
                         <option value="">Seçim Yapınız</option>
                         @foreach($categories as $category)
@@ -23,23 +25,23 @@
                         @endforeach
                     </select>
                 </div>
-                <!--
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                    </div>
-                    <div class="custom-file">
-                        <input type="file" name="image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                    </div>
-                </div>-->
                 <div class="form-group">
-                    <label>Makale Başlığı</label>
-                    <textarea name="content" id="editor" cols="30" rows="10"></textarea>
+                    <label>Makale İçeriği</label><br>
+                    @error("content")<p style="color:red">{{$message}}</p>@enderror
+                    <textarea name="content" id="editor" cols="30" rows="10" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description Alanı</label><br>
+                    @error("description")<p style="color:red">{{$message}}</p>@enderror
+                    <textarea class="form-control" name="description" required></textarea>
+                    <label>Keywords Alanı</label><br>
+                    @error("keywords")<p style="color:red">{{$message}}</p>@enderror
+                    <textarea class="form-control" name="keywords" required></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Makaleyi Oluştur</button>
                 </div>
+
             </form>
         </div>
     </div>

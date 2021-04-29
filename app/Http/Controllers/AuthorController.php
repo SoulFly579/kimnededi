@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuthorActivity;
 use App\Models\Category;
 use App\Models\Saying;
 use App\Models\Speaker;
@@ -90,7 +91,13 @@ class AuthorController extends Controller
     }
 
     public function dashboard(){
-        return view("Author.dashboard");
+        $getBlog = Article::where("writer_id","=",Session::get("LoggedAuthor"))->get();
+        $articles = Article::all();
+        $anwser = PrecentageRatioCalculationForArticles($articles,$getBlog);
+
+        $allLikes = Article::select("like","dislike")->where("writer_id","=",Session::get("LoggedAuthor"))->get();
+        
+        return view("Author.dashboard",compact("anwser"));
     }
 
     public function saying(){
@@ -99,12 +106,21 @@ class AuthorController extends Controller
     }
 
     public function sayingCreatePost(Request $request){
+        $request->validate([
+            "sayings"=>"required",
+            "speaker"=>"required",
+            "description"=>"required|min:25",
+            "keywords"=>"required|min:25",
+        ]);
         $speakers = Speaker::where("name","=",$request->speaker)->first();
         if($speakers){
             $sayings = new Saying;
             $sayings->sentence = $request->sayings;
             $sayings->speakers = $speakers->id;
             $sayings->writer_id = Session::get("LoggedAuthor");
+            $sayings->description = $request->description;
+            $sayings->keywords = $request->keywords;
+
             $sayings->save();
             return redirect()->back()->with("success","Başarılı bir şekilde yayınlanmıştır.");
         }
@@ -158,5 +174,9 @@ class AuthorController extends Controller
 
     }
 
+    public function activity(){
+        $activity = AuthorActivity::where("id","=",Session::get("LoggedAuthor"))->get();
+        return view("Author.activity",compact("activity"));
+    }
 
 }

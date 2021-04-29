@@ -18,8 +18,8 @@ class CreateSayingsTable extends Migration
             $table->string("sentence");
             $table->unsignedBigInteger("speakers");
             $table->unsignedBigInteger("writer_id");
-            $table->string("description",160);
-            $table->string("keywords",160);
+            $table->string("description",140);
+            $table->string("keywords",140);
             $table->timestamps();
 
             $table->foreign("speakers")->references("id")->on("speakers")->onDelete("cascade");

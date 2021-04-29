@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Jenssegers\Agent\Agent;
 use App\Models\UserActivity;
 use App\Models\AuthorActivity;
@@ -41,6 +42,7 @@ if (!function_exists('GettingDevicesInformation')) {
                 $activity->device = $agent->device();
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
+                $activity->date = Carbon::now();
                 $activity->save();
             }else if($user_type == "Author"){
                 $activity = new AuthorActivity;
@@ -49,6 +51,7 @@ if (!function_exists('GettingDevicesInformation')) {
                 $activity->device = $agent->device();
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
+                $activity->date = Carbon::now();
                 $activity->save();
             }
         }
@@ -71,11 +74,33 @@ if (!function_exists('PercentageRatioCalculation')) {
     {
         if($like <= 0){
             return "%0";
-        }else if($dislike <= 0){
+        }else if($dislike <= 0 ){
             return "%100";
         }else{
             $rate = $like+$dislike;
             $percentageRatio = ($like*100)/$rate;
+            return (int)$percentageRatio;
+        }
+    }
+
+    function PrecentageRatioCalculationForArticles($allArticles,$selfArticles){
+        if($allArticles->count() <= 0){
+            return "%0";
+        }else if($selfArticles->count() == $allArticles->count()){
+            return "%100";
+        }else{
+            $percentageRatio = ($selfArticles->count()*100)/$allArticles->count();
+            return (int)$percentageRatio;
+        }
+    }
+
+    function PrecentageRatioCalculationForLike($allLikes,$allDislikes){
+        if($allLikes->count() <= 0){
+            return "%0";
+        }else if($allDislikes->count() <= 0){
+            return "%100";
+        }else{
+            $percentageRatio = ($allLikes->count()*100)/$allDislikes->count();
             return (int)$percentageRatio;
         }
     }

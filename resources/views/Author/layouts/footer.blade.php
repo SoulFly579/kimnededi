@@ -35,12 +35,12 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Çıkış yapmak istediğinizden emin misiniz ? </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">İptal</button>
                 <form action="{{url('author/logout')}}" method="POST">
                     @csrf
-                    <button class="btn btn-primary" type="submit">Logout</button>
+                    <button class="btn btn-primary" type="submit">Çıkış</button>
                 </form>
             </div>
         </div>

@@ -20,18 +20,21 @@ class ArticlesController extends Controller
         return view("Author.articles.create",compact("categories"));
     }
     public function articlesCreatePost(Request $request){
+        $request->validate([
+           "title"=>"required",
+           "category"=>"required",
+           "content"=>"required",
+           "description"=>"required",
+           "keywords"=>"required",
+        ]);
         $article = new Article;
         $article->title = $request->title;
         $article->category_id = $request->category;
         $article->content = $request->content;
         $article->slug = Str::slug($request->title);
         $article->writer_id = Session::get('LoggedAuthor');
-        /*
-        if($request->hasFile('image')){
-            $imageName = Str::slug($request->title).'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads'),$imageName);
-            $article->image = '/uploads/'.$imageName;
-        }*/
+        $article->description = $request->description;
+        $article->keywords = $request->keywords;
         $article->save();
         return redirect('author/articles')->with("success","Makaleniz başarılı bir şekilde oluşturuldu.");
     }
@@ -54,12 +57,8 @@ class ArticlesController extends Controller
         $article->category_id = $request->category;
         $article->content = $request->content;
         $article->slug = Str::slug($request->title);
-        /*
-        if($request->hasFile('image')){
-            $imageName = Str::slug($request->title).'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads'),$imageName);
-            $article->image = '/uploads/'.$imageName;
-        }*/
+        $article->description = $request->description;
+        $article->keywords = $request->keywords;
         $article->save();
         return redirect("author/articles")->with("success","Makale başarılı bir şekilde güncellendi.");
     }

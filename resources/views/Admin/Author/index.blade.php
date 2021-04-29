@@ -27,10 +27,11 @@
                             <td>{{$author->name." ".$author->surname  }}</td>
                             <td>{{$author->getPost->count()}}</td>
                             <td>
-                                <form method="POST" action="{{url("/admin/authors/delete")}}">
+                                <form method="POST" action="{{url("/admin/authors/status")}}">
                                     @csrf
                                     <input type="hidden" value="{{$author->id}}" name="authorId" />
-                                    <button title="Sil" type="submit" class="btn btn-sm btn-danger remove-click"><i class="fa fa-times"></i></button>
+                                    <input type="hidden" value="{{$author->staus}}" name="status" />
+                                    <button title="Sil" type="submit" class="btn btn-sm btn-warning"><i class="fa fa-pen"></i></button>
                                 </form>
                             </td>
                         </tr>

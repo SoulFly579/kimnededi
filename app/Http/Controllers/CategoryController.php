@@ -15,13 +15,20 @@ class CategoryController extends Controller
     }
 
     public function categoriesCreate(Request $request){
+        $request->validate([
+           "category"=>"required",
+            "description"=>"required|min:25|max:140",
+            "keywords"=>"required|min:25|max:140",
+        ]);
         $isExists = Category::where('slug', Str::slug($request->category))->first();
         if($isExists){
-            return redirect()->back()->with("error",$request->category.' adında bir kategoryi zaten mevcut!');
+            return redirect()->back()->with("fail",$request->category.' adında bir kategoryi zaten mevcut!');
         }
         $category = new Category;
         $category->name = $request->category;
         $category->slug = Str::slug($request->category);
+        $category->description = $request->description;
+        $category->keywords = $request->keywords;
         $category->save();
         return redirect()->back()->with("success","Kategori başarıyla oluşturuldu.");
     }
@@ -32,18 +39,20 @@ class CategoryController extends Controller
     public function categoriesEditPost(Request $request){
         $isExists = Category::where('slug', Str::slug($request->category))->whereNotIn('id',[$request->id])->first();
         if($isExists){
-            return redirect()->back()->with("error",$request->category.' adında bir kategoryi zaten mevcut!');
+            return redirect()->back()->with("fail",$request->category.' adında bir kategoryi zaten mevcut!');
         }
         $category = Category::find($request->id);
         $category->name = $request->category;
         $category->slug = Str::slug($request->category);
+        $category->description = $request->description;
+        $category->keywords = $request->keywords;
         $category->save();
         return redirect()->back()->with("success",'Kategori başarıyla güncellendi.');
     }
     public function categoriesDelete(Request $request){
         $category = Category::findOrFail($request->delete_id);
         if($category->id == 1 ){
-            return redirect()->back()->with("error",'Bu kategori silinemez.');
+            return redirect()->back()->with("fail",'Bu kategori silinemez.');
         }
         $count = $category->getPost->count();
         $name = $category->name;

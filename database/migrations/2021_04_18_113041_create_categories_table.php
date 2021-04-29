@@ -18,8 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->string("name");
             $table->text("slug");
             $table->integer("status")->default("1");
-            $table->string("description",160);
-            $table->string("keywords",160);
+            $table->string("description",140);
+            $table->string("keywords",140);
             $table->timestamps();
         });
     }

@@ -26,6 +26,7 @@ class CreateAuthorsTable extends Migration
             $table->text("address");
             $table->boolean('is_two_factor');
             $table->text('two_factor_codes')->nullable();
+            $table->boolean("status")->default("1");
             $table->timestamps();
         });
     }

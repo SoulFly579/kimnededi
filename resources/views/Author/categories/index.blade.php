@@ -14,11 +14,18 @@
                             @if(Session::get("success"))
                                 <div class="alert alert-success">{{Session::get("success")}}</div>
                             @endif
-                            @if(Session::get("error"))
-                                <div class="alert alert-danger">{{Session::get("error")}}</div>
+                            @if(Session::get("fail"))
+                                <div class="alert alert-danger">{{Session::get("fail")}}</div>
                             @endif
-                            <label> Kategori Adı</label>
-                            <input type="text" class="form-control" name="category" required>
+                            <label> Kategori Adı</label><br>
+                                @error("category")<p style="color:red">{{$message}}</p>@enderror
+                                <input type="text" class="form-control" name="category" required>
+                                <label>Description Alanı</label><br>
+                                @error("description")<p style="color:red">{{$message}}</p>@enderror
+                                <textarea class="form-control" name="description" required></textarea>
+                                <label>Keywords Alanı</label><br>
+                                @error("keywords")<p style="color:red">{{$message}}</p>@enderror
+                                <textarea class="form-control" name="keywords" required></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary btn-block ">Ekle</button>
@@ -79,8 +86,10 @@
                             @csrf
                             <div class="form-group">
                                 <label>Kategori Adı:</label>
-                                <input id="category" type="text" class="form-control" name="category">
+                                <input id="category" type="text" class="form-control" name="category"><br>
                                 <input id="category_id" type="hidden" name="id">
+                                <textarea id="category_description" type="text" class="form-control" name="description"></textarea><br>
+                                    <textarea id="category_keywords" type="text" class="form-control" name="keywords"></textarea>
                             </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
@@ -138,6 +147,8 @@
                         console.log(data);
                         $('#category').val(data.name);
                         $('#category_id').val(data.id);
+                        $('#category_description').val(data.description);
+                        $('#category_keywords').val(data.keywords);
                         $('#EditModal').modal();
                     }
                 });

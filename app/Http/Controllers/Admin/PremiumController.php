@@ -21,6 +21,7 @@ class PremiumController extends Controller
            "validityTime"=>"required",
             "validityType"=>"required",
             "content"=>"required",
+            "price"=>"required",
         ]);
 
         $preiumType = new PremiumType;
@@ -32,11 +33,6 @@ class PremiumController extends Controller
         $preiumType->save();
 
         return redirect()->back()->with("success","Paket başarılı bir şekilde oluşturuldu.");
-    }
-
-    public function premiumDelete(Request $request){
-        PremiumType::where("id","=",$request->delete_id)->delete();
-        return redirect()->back()->with("success","Başarıyla Silindi");
     }
 
     public function premiumStatus(Request $request){

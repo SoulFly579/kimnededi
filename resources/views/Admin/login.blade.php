@@ -38,7 +38,7 @@
                         <div class="col-md-12">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Admin Giriş Paneline Hoşgeldiniz!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Admin Giriş Sayfasına Hoşgeldiniz!</h1>
                                 </div>
                                 @if(Session::get("fail"))
                                     <div class="alert alert-danger">{{ Session::get("fail") }}</div>
@@ -60,10 +60,6 @@
                                         Giriş Yap
                                     </button>
                                 </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
                             </div>
                         </div>
                     </div>

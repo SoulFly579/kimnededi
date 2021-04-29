@@ -6,8 +6,8 @@
             </h6>
         </div>
         <div class="card-body">
-            @if(Session::get("error"))
-                <div class="alert alert-danger">{{Session::get("error")}}</div>
+            @if(Session::get("fail"))
+                <div class="alert alert-danger">{{Session::get("fail")}}</div>
             @endif
             @if(Session::get("success"))
                 <div class="alert alert-success">{{Session::get("success")}}</div>

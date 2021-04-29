@@ -24,8 +24,8 @@ class CreateSiteSettingsTable extends Migration
             $table->string("linkedin")->nullable();
             $table->string("youtube")->nullable();
             $table->string("instragram")->nullable();
-            $table->string("description",160);
-            $table->string("keywords",160);
+            $table->string("description",140);
+            $table->string("keywords",140);
             $table->timestamps();
         });
     }

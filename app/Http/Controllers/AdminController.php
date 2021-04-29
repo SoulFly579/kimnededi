@@ -106,6 +106,7 @@ class AdminController extends Controller
             'username'=>"required|unique:authors",
             'email'=>"required|email|unique:authors",
             'location'=>"required",
+            'address'=>"required",
             'phone'=>"required",
         ]);
         $password = Str::random(12);
@@ -131,9 +132,9 @@ class AdminController extends Controller
 
     }
 
-    public function authorsDelete(Request $request){
-        Author::findOrFail($request->authorId)->delete();
-        return redirect("/admin/authors")->with("success","Başarıyla yazar silindi.");
+    public function authorsStatus(Request $request){
+        Author::findOrFail($request->authorId)->update(["status",!$request->status]);
+        return redirect("/admin/authors")->with("success","Başarıyla yazar güncellendi.");
     }
 
     public function announcements(){

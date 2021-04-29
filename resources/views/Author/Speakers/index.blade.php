@@ -14,10 +14,11 @@
                             @if(Session::get("success"))
                                 <div class="alert alert-success">{{Session::get("success")}}</div>
                             @endif
-                            @if(Session::get("error"))
-                                <div class="alert alert-danger">{{Session::get("error")}}</div>
+                            @if(Session::get("fail"))
+                                <div class="alert alert-danger">{{Session::get("fail")}}</div>
                             @endif
-                            <label> Söyleyen Adı </label>
+                            <label> Söyleyen Adı </label><br>
+                                @error("name")<p style="color:red">{{$message}}</p>@enderror
                             <input type="text" class="form-control" name="name" required><br>
                         </div>
                         <div class="form-group">
