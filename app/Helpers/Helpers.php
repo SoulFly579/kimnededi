@@ -42,7 +42,6 @@ if (!function_exists('GettingDevicesInformation')) {
                 $activity->device = $agent->device();
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
-                $activity->date = Carbon::now();
                 $activity->save();
             }else if($user_type == "Author"){
                 $activity = new AuthorActivity;
@@ -51,7 +50,6 @@ if (!function_exists('GettingDevicesInformation')) {
                 $activity->device = $agent->device();
                 $activity->ip_address = \Request::ip();
                 $activity->user_id = $user->id;
-                $activity->date = Carbon::now();
                 $activity->save();
             }
         }

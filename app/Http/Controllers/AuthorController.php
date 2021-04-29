@@ -94,9 +94,12 @@ class AuthorController extends Controller
         $getBlog = Article::where("writer_id","=",Session::get("LoggedAuthor"))->get();
         $articles = Article::all();
         $anwser = PrecentageRatioCalculationForArticles($articles,$getBlog);
-
-        $allLikes = Article::select("like","dislike")->where("writer_id","=",Session::get("LoggedAuthor"))->get();
-        
+        /*
+        $like = [];
+        $allLikes = Article::select("like")->where("writer_id","=",Session::get("LoggedAuthor"))->get();
+        foreach ($allLikes as $allLike) {
+            array_push($like, $allLike);
+        }*/
         return view("Author.dashboard",compact("anwser"));
     }
 

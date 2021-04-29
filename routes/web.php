@@ -12,23 +12,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\PremiumController;
 
-use App\Http\Middleware\IsLoginAuthor;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/',[HomeController::class,"home"]);
-//Route::get('/{page}',[HomeController::class,"page"]);
-Route::get("/contact", [HomeController::class,"contact"]);
-Route::post("/contact", [HomeController::class,"contactPost"]);
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +38,6 @@ Route::prefix("account")->group(function(){
     Route::get('/verification/{token}',[UserController::class,"account_verification"]);
     Route::get('/two_factor_verify',[UserController::class,"two_factor_code_check"]);
     Route::post('/two_factor_verify',[UserController::class,"two_factor_code_check_post"]);
-    Route::get("/test",function (){
-        return "merhaba";
-    })->middleware("IsLoginUser");
     //Route::get('/settings',[UserController::class,"account_settings"]);
     //Route::post('/settings',[UserController::class,"account_settings"]);
 });
@@ -178,5 +160,25 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
 
 
 });
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/',[HomeController::class,"home"]);
+Route::get('/blog',[HomeController::class,"blog"]);
+Route::get("/quotes",[HomeController::class,"quotes"]);
+Route::get("/{slug}",[HomeController::class,"categorySearch"]);
+Route::get("/{slug}/{article_slug}/{id}",[HomeController::class,"singleArticle"]);
+//Route::get('/{page}',[HomeController::class,"page"]);
+Route::get("/contact", [HomeController::class,"contact"]);
+Route::post("/contact", [HomeController::class,"contactPost"]);
 
 

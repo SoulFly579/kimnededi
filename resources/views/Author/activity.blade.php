@@ -30,7 +30,7 @@
                             <td>{{$activity->ip_address}}</td>
                             <td>{{$activity->platform}} </td>
                             <td>{{$activity->device}}</td>
-                            <td>{{$activity->date}}</td>
+                            <td>{{$activity->created_at}}</td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -51,6 +51,57 @@
     <script src="{{asset('front/')}}/js/respond.min.js"></script>
     <![endif]-->
     @yield('css')
+    <style>
+        .navigation {
+        display: none;
+        }
+
+        @media only screen and (max-width: 1024px) {
+        .userDiscussion-description {
+        padding: 10px 0;
+        width: 30%;
+        }
+        .answeredDesc {
+        padding: 10px 0 0 20px;
+        width: 35% !important;
+        }
+        }
+
+        @media only screen and (max-width: 770px) {
+        .navigation {
+        display: flex;
+        background: #ddd;
+        height: 50px;
+        align-items: center;
+        justify-content: space-around;
+        }
+        .navHome, .navMessages, .navWrite, .navNotifications {
+        height: 100%;
+        }
+        .navigation a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        }
+        .connection-answers {
+        height: 31px;
+        }
+        .discussions .userDiscussion {
+        padding: 0 5px;
+        }
+        .discussions .userDiscussion .userInfo-and-answerBtn {
+        padding: 0;
+        }
+        .userInfo-discussion h4, .answeredUserInfo h4 {
+        font-size: 16px;
+        }
+        .userInfo-discussion h3, .answeredUserInfo h3 {
+        font-size: 14px;
+        }
+        }
+    </style>
 </head>
 <body>
+
 
