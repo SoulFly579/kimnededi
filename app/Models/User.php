@@ -48,7 +48,7 @@ class User extends Authenticatable
     ];
 
     public function CreteTwoFactorCode(){
-        return rand(1000,9999);
+        return Str::random(6);
     }
 
     public function GettingActivity(){

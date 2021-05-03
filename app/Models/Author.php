@@ -48,7 +48,7 @@ class Author extends Model
     ];
 
     public function CreteTwoFactorCode(){
-        return rand(1000,9999);
+        return Str::random(6);
     }
 
     public function getPost(){

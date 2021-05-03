@@ -557,6 +557,9 @@ figure {
 	position: relative;
 	float: left;
 	width: 100%;
+	display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 #fh5co-logo{
 	// z-index: 2;
@@ -587,9 +590,10 @@ figure {
 	}
 
 	@media screen and (max-width: $screen-sm) {
-		width: 100%;
-		float: none;
 		margin-top: 0;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
 	}
 	
 }
@@ -1749,6 +1753,18 @@ figure {
   }
   h3 {
     font-size: 15px;
+  }
+  h4 {
+	font-size: 13px;
+  }
+  .contactItems {
+	  .contactMail{
+		  display: flex;
+		  margin-bottom: 3px;
+	  }
+	  .contactPhone{
+		  display: flex;
+	  }
   }
   ul.link {
     padding: 0;

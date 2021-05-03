@@ -119,6 +119,7 @@ class AuthorController extends Controller
         if($speakers){
             $sayings = new Saying;
             $sayings->sentence = $request->sayings;
+            $sayings->slug = Str::slug($request->sayings);
             $sayings->speakers = $speakers->id;
             $sayings->writer_id = Session::get("LoggedAuthor");
             $sayings->description = $request->description;

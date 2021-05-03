@@ -40,9 +40,10 @@
     <link rel="stylesheet" href="{{asset('front/')}}/css/superfish.css">
     <!-- Flexslider  -->
     <link rel="stylesheet" href="{{asset('front/')}}/css/flexslider.css">
-
+    <!-- Template  -->
     <link rel="stylesheet" href="{{asset('front/')}}/css/style.css">
-
+    <!-- Theme  -->
+    <link rel="stylesheet" href="{{asset('front/')}}/css/theme.css">
 
     <!-- Modernizr JS -->
     <script src="{{asset('front/')}}/js/modernizr-2.6.2.min.js"></script>
@@ -72,8 +73,11 @@
         display: flex;
         background: #ddd;
         height: 50px;
+        width: 100%;
         align-items: center;
         justify-content: space-around;
+        position: fixed;
+        bottom: 0;
         }
         .navHome, .navMessages, .navWrite, .navNotifications {
         height: 100%;
@@ -100,6 +104,34 @@
         font-size: 14px;
         }
         }
+
+        @media only screen and (max-width: 425px) {
+            .wordSearch {
+                width: 100% !important;
+            }
+            .categories {
+                width: 100% !important;
+            }
+            .populars {
+                width: 100% !important;
+            }
+            .font-sizeSelectorTitle {
+                width: 100% !important;
+            }
+        }
+
+        @media only screen and (min-width: 425px) {
+            .articlesTitle {
+                width: 50%;
+            }
+        }
+
+        @media only screen and (min-width: 992px) {
+            .articlesTitle {
+                width: auto;
+            }
+        }
+
     </style>
 </head>
 <body>

@@ -8,7 +8,7 @@ use App\Models\Category;
 class BlogController extends Controller
 {
     public function articles(){
-        $articles = Article::all();
+        $articles = Article::orderBy("updated_at")->get();
         return view("Admin.Blog.articles", compact("articles"));
     }
 

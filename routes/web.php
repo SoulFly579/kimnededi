@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\PremiumController;
+use App\Http\Controllers\QuotesController;
 
 
 
@@ -154,9 +155,6 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
     Route::post("/premiums/give",[PremiumController::class,"premiumGivePost"]);
     Route::get("/premiums/give/get",[PremiumController::class,"premiumGiveGet"]);
 
-    // Page Route
-    Route::get("/pages", [PageController::class,"pages"]);
-
 
 
 });
@@ -174,10 +172,9 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
 
 Route::get('/',[HomeController::class,"home"]);
 Route::get('/blog',[HomeController::class,"blog"]);
-Route::get("/quotes",[HomeController::class,"quotes"]);
+Route::get("/quotes",[QuotesController::class,"index"]);
 Route::get("/{slug}",[HomeController::class,"categorySearch"]);
 Route::get("/{slug}/{article_slug}/{id}",[HomeController::class,"singleArticle"]);
-//Route::get('/{page}',[HomeController::class,"page"]);
 Route::get("/contact", [HomeController::class,"contact"]);
 Route::post("/contact", [HomeController::class,"contactPost"]);
 

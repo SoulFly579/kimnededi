@@ -16,10 +16,11 @@ class HomeController extends Controller
     }
 
     public function blog(){
-        $articles = Article::all();
+        $articles = Article::orderBy("updated_at")->get();
+        $mostReaded = Article::orderBy("hit")->limit(5)->get();
         $categories = Category::all();
 
-        return view("Front.Blog.index",compact("articles","categories"));
+        return view("Front.Blog.index",compact("articles","categories","mostReaded"));
     }
 
     public function page($page){
@@ -39,7 +40,9 @@ class HomeController extends Controller
         if($category){
             $article = Article::findOrFail($id);
             if($article->slug == $articleSlug){
-                return view("Front.Blog.single",compact("article"));
+                $article->increment("hit");
+                $mostReaded = Article::orderBy("hit")->limit(5)->get();
+                return view("Front.Blog.single",compact("article","mostReaded"));
             }
         }else{
             return redirect()->back()->with("fail","Aradığınız yazı bulunamadı");

@@ -11,7 +11,7 @@
                                         <a class="active" href="index.html">Home</a>
                                     </li> -->
                                 <li><a href="{{url("/blog")}}">Makaleler</a></li>
-                                <li><a href="{{url("/discussion")}}">Tartışma</a></li>
+                                <li><a href="{{url("/quotes")}}">Sözler</a></li>
                                 <li><a href="{{url("/contact")}}">İletişim</a></li>
                             </ul>
                         </nav>

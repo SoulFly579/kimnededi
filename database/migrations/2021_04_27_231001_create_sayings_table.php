@@ -18,6 +18,9 @@ class CreateSayingsTable extends Migration
             $table->string("sentence");
             $table->unsignedBigInteger("speakers");
             $table->unsignedBigInteger("writer_id");
+            $table->string("slug");
+            $table->text("like")->nullable();
+            $table->text("dislike")->nullable();
             $table->string("description",140);
             $table->string("keywords",140);
             $table->timestamps();

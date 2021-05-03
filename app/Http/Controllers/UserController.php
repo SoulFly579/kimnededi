@@ -37,10 +37,12 @@ class UserController extends Controller
                             return redirect("/account/two_factor_verify")->with("info","E-posta adresine gönderilmiş olan güvenlik kodunu giriniz.");
                         }
                     }else{
-                        if(Carbon::createFromFormat('Y-m-d', $user->premium_finished_date)->isPast()){
-                            $user->premium_type = null;
-                            $user->premium_finished_date = null;
-                            $user->save();
+                        if($user->premium_type && $user->premium_finished_date){
+                            if(Carbon::createFromFormat('Y-m-d', $user->premium_finished_date)->isPast()){
+                                $user->premium_type = null;
+                                $user->premium_finished_date = null;
+                                $user->save();
+                            }
                         }
                         $request->session()->put("LoggedUser",$user->id);
                         GettingDevicesInformation($user->id,"User");
@@ -117,14 +119,17 @@ class UserController extends Controller
     public function two_factor_code_check_post(Request $request){
         $user = User::where("two_factor_codes","=",$request->code)->first();
         if($user){
-            if(date($user->premium_finished_date)->isPast()){
-                $user->premium_type = null;
-                $user->premium_finished_date = null;
-                $user->save();
+            if($user->premium_type && $user->premium_finished_date){
+                if(Carbon::createFromFormat('Y-m-d', $user->premium_finished_date)->isPast()){
+                    $user->premium_type = null;
+                    $user->premium_finished_date = null;
+                    $user->save();
+                }
             }
             $request->session()->put("LoggedUser",$user->id);
             $user->two_factor_codes = null;
             $user->save();
+            GettingDevicesInformation($user->id,"User");
             return redirect("/");
         }else{
             return redirect("/account/two_factor_verify")->with("fail","Maalesef girmiş olduğunuz kodu doğrulayamadık...");
