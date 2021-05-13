@@ -19,7 +19,7 @@
             <ul>
                 @foreach($speakers as $speakers)
                     <li>
-                        <a href="{{url("/".$speakers->id)}}">{{$speakers->name}}</a>
+                        <a href="{{url("/quotes/".$speakers->slug)}}">{{$speakers->name}}</a>
                     </li>
                 @endforeach
             </ul>

@@ -5,8 +5,8 @@
         </div>
         @foreach($quotes as $quotes)
             <div class="oneArticle">
-                <h3>{{$getAdded->title}}</h3>
-                <a class="btn" href="{{url("/".$quotes->slug."/".$quotes->id)}}">Tartışmaları Gör</a>
+                <h3>{{$quotes->sentence}}</h3>
+                <a class="btn" href="{{url("/quotes/discussion/>".$quotes->id)}}">Tartışmaları Gör</a>
                 <div class="articleFooter">
                     <div class="artcileDesc">
                                         <span>

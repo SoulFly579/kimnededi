@@ -37,12 +37,13 @@ class HomeController extends Controller
 
     public function singleArticle($slug,$articleSlug,$id){
         $category = Category::where("slug","=",$slug)->first();
+        $categories = Category::all();
         if($category){
             $article = Article::findOrFail($id);
             if($article->slug == $articleSlug){
                 $article->increment("hit");
                 $mostReaded = Article::orderBy("hit")->limit(5)->get();
-                return view("Front.Blog.single",compact("article","mostReaded"));
+                return view("Front.Blog.single",compact("article","categories","mostReaded"));
             }
         }else{
             return redirect()->back()->with("fail","Aradığınız yazı bulunamadı");
@@ -55,7 +56,8 @@ class HomeController extends Controller
         if ($category){
             $articles = Article::where("category_id","=",$category->id)->get() ?? abort(404);
             if($articles){
-                return view("Front.Blog.index",compact("categories","articles"));
+                $mostReaded = Article::orderBy("hit")->limit(5)->get();
+                return view("Front.Blog.index",compact("categories","articles","mostReaded"));
             }
         }
     }
@@ -64,5 +66,17 @@ class HomeController extends Controller
         $articles = Saying::all();
         $categories = Speaker::all();
         return view("Front.Blog.index",compact("articles","categories"));
+    }
+
+    public function quotesSearch($slug){
+        $categories = Category::all();
+        $category = Category::where("slug","=",$slug)->first() ?? abort(404);
+        if ($category){
+            $articles = Article::where("category_id","=",$category->id)->get() ?? abort(404);
+            if($articles){
+                $mostReaded = Article::orderBy("hit")->limit(5)->get();
+                return view("Front.Blog.index",compact("categories","articles","mostReaded"));
+            }
+        }
     }
 }

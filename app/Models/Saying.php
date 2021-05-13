@@ -15,6 +15,6 @@ class Saying extends Model
     }
 
     public function getAdded(){
-        return $this->belongsTo(Author::class,"id","writer_id");
+        return $this->belongsTo(Author::class,"writer_id","id");
     }
 }

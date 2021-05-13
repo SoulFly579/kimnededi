@@ -173,8 +173,9 @@ Route::prefix("admin")->middleware("IsLoginAdmin")->group(function(){
 Route::get('/',[HomeController::class,"home"]);
 Route::get('/blog',[HomeController::class,"blog"]);
 Route::get("/quotes",[QuotesController::class,"index"]);
-Route::get("/{slug}",[HomeController::class,"categorySearch"]);
-Route::get("/{slug}/{article_slug}/{id}",[HomeController::class,"singleArticle"]);
+Route::get("/quotes/{slug}",[QuotesController::class,"quotesSearch"]);
+Route::get("/blog/{slug}",[HomeController::class,"categorySearch"]);
+Route::get("/blog/{slug}/{article_slug}/{id}",[HomeController::class,"singleArticle"]);
 Route::get("/contact", [HomeController::class,"contact"]);
 Route::post("/contact", [HomeController::class,"contactPost"]);
 

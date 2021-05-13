@@ -224,7 +224,7 @@ padding-bottom: 12px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 20px;
+  padding: 20px 20px 10px 20px;
   margin: 30px 0;
 }
 
@@ -238,16 +238,20 @@ padding-bottom: 12px;
 .oneArticle p {
   text-align: left;
   margin: 15px 0 0 0 !important;
+  word-wrap: anywhere;
 }
 
 .articleFooter {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .artcileDesc {
   display: flex;
+  margin: 0 0 10px 0;
+  flex-wrap: wrap;
 }
 
 .artcileDesc span {
@@ -258,7 +262,7 @@ padding-bottom: 12px;
 }
 
 .artcileDesc span svg {
-  margin-right: 10%;
+  margin-right: 10px;
 }
 
 .articleAuthor {
@@ -266,6 +270,7 @@ padding-bottom: 12px;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  margin: 0 0 10px 0;
 }
 
 .articleAuthor svg {
@@ -338,12 +343,6 @@ padding-bottom: 12px;
 @media only screen and (max-width: 365px) {
   .oneArticle {
       padding: 20px 0;
-  }
-  .artcileDesc span svg {
-      margin: 0;
-  }
-  .articleAuthor svg {
-      margin: 0;
   }
 }
 

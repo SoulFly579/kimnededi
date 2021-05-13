@@ -16,7 +16,7 @@
             </div>
             <div class="joinDiscussion">
                 <h4>Hadi sende diğer kullanıcıların fikirlerini görmek için ve kendi fikrini belirtmek için Tıkla!!</h4>
-                <a href="discussion.php">Tartışmaya Katıl</a>
+                <a href="{{url('/blog/discussion/'.$article->slug.'/'.$article->id)}}">Tartışmaya Katıl</a>
             </div>
         </div>
         <div class="col-md-5 fastAccesBar">
@@ -32,52 +32,7 @@
                 </a>
             </div>
 
-            <div class="categories">
-                <div class="categoryTitle">
-                    <h2>Kategoriler</h2>
-                </div>
-                <div class="categoryList">
-                    <ul>
-                        <li>
-                            <a href="#">Bilim</a>
-                        </li>
-                        <li>
-                            <a href="#">Siyaset</a>
-                        </li>
-                        <li>
-                            <a href="#">Teknoloji</a>
-                        </li>
-                        <li>
-                            <a href="#">Sanat</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="populars">
-                <div class="popularsTitle">
-                    <h2>En Çok Okunanlar</h2>
-                </div>
-                <div class="popularsList">
-                    <ul>
-                        <li>
-                            <a href="#">1 Ayda Kaç Kilo Verdim!</a>
-                        </li>
-                        <li>
-                            <a href="#">4 Yılda Nasıl Zengin Oldum?</a>
-                        </li>
-                        <li>
-                            <a href="#">Karşınızdakini Anlamak</a>
-                        </li>
-                        <li>
-                            <a href="#">Tutkunuzu Bulmak</a>
-                        </li>
-                        <li>
-                            <a href="#">Enespınarenespınarenespınarenespınarenespınarenespınar</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @include("Front.widgetsler.categoryWidgets")
 
         </div>
 

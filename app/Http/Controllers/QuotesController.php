@@ -13,4 +13,16 @@ class QuotesController extends Controller
         $speakers = Speaker::all();
         return view("Front.Quotes.index",compact("quotes","speakers"));
     }
+
+    public function quotesSearch($slug){
+        $speakers = Speaker::all();
+        $speaker = Saying::where("slug","=",$slug)->first() ?? abort(404);
+        if ($category){
+            $quotes = Saying::where("speakers","=",$speaker->id)->get() ?? abort(404);
+            if($quotes){
+                $mostReaded = Saying::orderBy("hit")->limit(5)->get();
+                return view("Front.Blog.index",compact("quotes","speakers","mostReaded"));
+            }
+        }
+    }
 }

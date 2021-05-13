@@ -1930,7 +1930,7 @@ figure {
 }
 
 @media screen and (max-width: 992px) {
-  #fh5co-logo {
+  #footer #fh5co-logo {
     float: none;
     margin: 0 0 10px 0;
   }

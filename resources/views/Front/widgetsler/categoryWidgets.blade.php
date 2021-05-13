@@ -8,7 +8,7 @@
             <ul>
                 @foreach($categories as $category)
                     <li>
-                        <a href="{{url("/".$category->slug)}}">{{$category->name}}</a>
+                        <a href="{{url('/blog/'.$category->slug)}}">{{$category->name}}</a>
                     </li>
                 @endforeach
             </ul>
@@ -23,7 +23,7 @@
             <ul>
             @foreach($mostReaded as $mostReaded)
                 <li>
-                    <a href="{{url('/'.$mostReaded->getCategory->slug.'/'.$mostReaded->slug.'/'.$mostReaded->id)}}">{{$mostReaded->title}}</a>
+                    <a href="{{url('/blog/'.$mostReaded->getCategory->slug.'/'.$mostReaded->slug.'/'.$mostReaded->id)}}">{{$mostReaded->title}}</a>
                 </li>
             @endforeach
             </ul>
